@@ -16,11 +16,24 @@ float focalLenght = 6.0;
 float alpha = 56.6;
 
 
+
 int main() {
 
     Mat leftFrame, rightFrame;
     VideoCapture capLeft(0);
-    VideoCapture capRight(1);
+    VideoCapture capRight(2);  // Check on command line with "ffplay /dev/video2"
+
+    double width = 1920;
+    double height = 1080;
+    if (true) {
+        width = 800;
+        height = 600;
+    }
+
+    capLeft.set(CAP_PROP_FRAME_WIDTH, width);
+    capRight.set(CAP_PROP_FRAME_WIDTH, width);
+    capLeft.set(CAP_PROP_FRAME_HEIGHT, height);
+    capRight.set(CAP_PROP_FRAME_HEIGHT, height);
 
     StereoVision stereovision(baseline, alpha, focalLenght);
 
@@ -45,6 +58,14 @@ int main() {
 
         capLeft.read(leftFrame);
         capRight.read(rightFrame);
+
+        if (leftFrame.cols != rightFrame.cols || leftFrame.rows != rightFrame.rows) {
+            cout << "Left and Right Camera frames do not have the same resolution" << endl;
+            // Get resolutions for the frames
+            cout << "Left Frame Resolution: " << leftFrame.cols << " x " << leftFrame.rows << endl;
+            cout << "Right Frame Resolution: " << rightFrame.cols << " x " << rightFrame.rows << endl;
+            break;
+        }
 
         // Calibration of the frames
         //stereovision.undistortFrame(leftFrame);

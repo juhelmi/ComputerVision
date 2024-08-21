@@ -1,0 +1,11 @@
+
+All properties from video device
+v4l2-ctl -d /dev/video0 --all
+
+Check video playing for device
+ffplay /dev/video2
+
+Video to file
+ffmpeg -f v4l2 -framerate 30 -video_size 1280x720 -input_format mjpeg -i /dev/video0 -c copy out.mkv
+and properties from it 
+ffprobe out.mkv
