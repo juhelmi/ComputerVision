@@ -4,6 +4,8 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 
+#include <format>
+
 int main(int argc, char **argv) {
 
   (void)argc;
@@ -19,11 +21,13 @@ int main(int argc, char **argv) {
   // fields with a size of 15x15mm
 
   int checkerBoard[2] = {25,18};
+  //int filedSize = 15;   // added from video code
+  int filedSize = 1;
   // Defining the world coordinates for 3D points
     std::vector<cv::Point3f> objp;
     for(int i = 1; i<checkerBoard[1]; i++){
       for(int j = 1; j<checkerBoard[0]; j++){
-        objp.push_back(cv::Point3f(j,i,0));
+        objp.push_back(cv::Point3f(j*filedSize,i*filedSize,0));
       }
     }
 
@@ -48,6 +52,7 @@ int main(int argc, char **argv) {
     }
 
     // Display
+    std::cout << std::format("Pattern found in image {}? {}\n", i, patternFound);
     cv::drawChessboardCorners(img, patternSize, q[i], patternFound);
     cv::imshow("chessboard detection", img);
     cv::waitKey(0);
