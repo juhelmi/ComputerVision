@@ -1,0 +1,7 @@
+[proc] Executing command: /usr/bin/cmake -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE --no-warn-unused-cli -S/home/juha/work/ComputerVision/cameraCalibration -B/home/juha/work/ComputerVision/cameraCalibration/build -G "Unix Makefiles"
+cmake -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE --no-warn-unused-cli -S ./ -B build -G "Unix Makefiles"
+
+[proc] Executing command: /usr/bin/cmake --build /home/juha/work/ComputerVision/cameraCalibration/build --config Debug --target all -j 6 --
+
+cmake --build ./build --config Debug --target all -j 6 --
+
