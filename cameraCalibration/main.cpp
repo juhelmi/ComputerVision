@@ -12,7 +12,14 @@ int main(int argc, char **argv) {
   (void)argv;
 
   std::vector<cv::String> fileNames;
-  cv::glob("../calibration/Image*.png", fileNames, false);
+  cv::String path = "../calibration/Image*.png";
+  try {
+    cv::glob(path, fileNames, false);
+  } catch (cv::Exception &e) {
+    std::cerr << std::format("No images found in directory: {}!\n", path);
+    std::cerr << e.what() << std::endl;
+    return 1;
+  }
   cv::Size patternSize(25 - 1, 18 - 1);
   std::vector<std::vector<cv::Point2f>> q(fileNames.size());
 
